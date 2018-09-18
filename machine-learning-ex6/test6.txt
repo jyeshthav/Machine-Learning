@@ -1,0 +1,54 @@
+load('ex6data1.mat');
+plotData(X, y);
+
+load('ex6data1.mat');
+C = 1;
+model = svmTrain(X, y, C, @linearKernel, 1e-3, 20);
+visualizeBoundaryLinear(X, y, model);
+
+x1 = [1 2 1]; 
+x2 = [0 4 -1]; 
+sigma = 2;
+sim = gaussianKernel(x1, x2, sigma);
+
+load('ex6data2.mat');
+plotData(X, y);
+
+load('ex6data2.mat');
+C = 1; 
+sigma = 0.1;
+model= svmTrain(X, y, C, @(x1, x2) gaussianKernel(x1, x2, sigma)); 
+visualizeBoundary(X, y, model);
+
+load('ex6data3.mat');
+[C, sigma] = dataset3Params(X, y, Xval, yval);
+model= svmTrain(X, y, C, @(x1, x2) gaussianKernel(x1, x2, sigma));
+visualizeBoundary(X, y, model);
+
+----------------------------------------------------------------------------------------------------
+
+file_contents = readFile('emailSample1.txt');
+word_indices  = processEmail(file_contents);
+
+file_contents = readFile('emailSample1.txt');
+word_indices  = processEmail(file_contents);
+features      = emailFeatures(word_indices);
+
+%%%%%%%%%%%%%%%
+
+ load('spamTrain.mat');
+C = 0.1;
+model = svmTrain(X, y, C, @linearKernel);
+p = svmPredict(model, X);
+
+load('spamTest.mat');
+p = svmPredict(model, Xtest);
+
+[weight, idx] = sort(model.w, 'descend');
+vocabList = getVocabList();
+
+filename = 'spamSample1.txt';
+file_contents = readFile(filename);
+word_indices  = processEmail(file_contents);
+x             = emailFeatures(word_indices);
+p = svmPredict(model, x);
