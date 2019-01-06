@@ -36,6 +36,10 @@ features      = emailFeatures(word_indices);
 
 %%%%%%%%%%%%%%%
 
+read dataset3params.m carefully and understand
+
+%%%%%%%%%%%%%%%
+
  load('spamTrain.mat');
 C = 0.1;
 model = svmTrain(X, y, C, @linearKernel);
